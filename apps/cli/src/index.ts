@@ -1,5 +1,14 @@
 #!/usr/bin/env bun
 
+// termux-android: allow overriding the OpenTUI native library path via
+// OPENTUI_LIB_PATH (Android has no prebuilt @opentui/core native package).
+import { setRenderLibPath } from "@opentui/core";
+if (process.env.OPENTUI_LIB_PATH) {
+  try {
+    setRenderLibPath(process.env.OPENTUI_LIB_PATH);
+  } catch {}
+}
+
 import { isMainThread } from "node:worker_threads";
 import {
 	buildTelemetrySelfcheckReport,
